@@ -1,6 +1,6 @@
 package count
 
-import(
+import (
 	"appengine"
 	"appengine/datastore"
 	"github.com/gin-gonic/gin"
@@ -15,7 +15,7 @@ type Count struct {
 func init() {
 	router := gin.Default()
 
-	router.GET("/", func (c *gin.Context) {
+	router.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "Welcome to Gin API.")
 	})
 
@@ -38,7 +38,7 @@ func countKey(c appengine.Context) *datastore.Key {
 func setCount(c *gin.Context) {
 	n, err := strconv.Atoi(c.Param("number"))
 	if err != nil {
-		c.String(http.StatusForbidden, "invalid number.")
+		c.String(http.StatusBadRequest, "invalid number.")
 	}
 
 	if count, err := getCountHelper(c); err == nil {
@@ -72,7 +72,7 @@ func getCount(c *gin.Context) {
 func addCount(c *gin.Context) {
 	i, err := strconv.Atoi(c.Param("number"))
 	if err != nil {
-		c.String(http.StatusForbidden, "invalid number.")
+		c.String(http.StatusBadRequest, "invalid number.")
 	}
 
 	count, err := getCountHelper(c)
@@ -92,7 +92,7 @@ func addCount(c *gin.Context) {
 func subtractCount(c *gin.Context) {
 	i, err := strconv.Atoi(c.Param("number"))
 	if err != nil {
-		c.String(http.StatusForbidden, "invalid number.")
+		c.String(http.StatusBadRequest, "invalid number.")
 	}
 
 	count, err := getCountHelper(c)
@@ -112,7 +112,7 @@ func subtractCount(c *gin.Context) {
 func multiplyCount(c *gin.Context) {
 	i, err := strconv.Atoi(c.Param("number"))
 	if err != nil {
-		c.String(http.StatusForbidden, "invalid number.")
+		c.String(http.StatusBadRequest, "invalid number.")
 	}
 
 	count, err := getCountHelper(c)
